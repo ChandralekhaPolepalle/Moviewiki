@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2019 by ChandralekhaPolepalle (http://jsbin.com/pomobel/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+	html{
+		height:100%;
+		overflow-x:hidden;
+	}
+	body{
+		margin:0;
+		background-size:cover;
+		background-image:linear-gradient(-45deg,#06336e,#1a8b89);
+		background-repeat:no-repeat;
+		height:100%;
+	}
+	h1{
+		padding-top:140px;
+		font-size:70px;
+		font-family:"Century Gothic";
+		text-align:center;
+		color:white;
+		font-weight:lighter;
+	}
+	.text{
+		text-align:center;
+		width:100%;
+	}
+	.button{
+		text-align:center;
+		padding-top:30px;
+		border-radius:20px;
+	}
+  </style>
+  <script type="text/javascript">
+    var mve;
+    function func()
+    {
+      mve=document.getElementById("movie_search").value;
+      console.log(mve);
+      loadREST();
+    }
+    function loadREST(){
+      fetch("https://www.omdbapi.com/?s="+mve+"&apikey=ba1f4581")
+      .then(function(response){
+          return response.json();
+      })
+      .then(function(data){
+        console.log(data.Search[0].Year);
+        var title=data.Search[0].Title;
+        var year=data.Search[0].Year;
+        var imgurl=data.Search[0].Poster;
+        
+        document.write("Title : "+title +"<br>");
+        document.write("Year : "+year +"<br>");
+        document.write("<img src= '"+imgurl+"'>");
+        
+      })
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>M O V I E W I K I</h1>
+  </div>
+  <div class="text">
+  <input id="movie_search" placeholder="Search">
+  <br>
+  <br>
+  </div>
+  <div class="button">
+  <button onClick="func()" id="go">GO!</button>
+  </div>
+</body>
+</html>
